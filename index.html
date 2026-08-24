@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#062d5c">
+  <title>DAFS | Horarios de Laboratorios de Física</title>
+  <meta name="description" content="Horarios de laboratorios de física y pantalla informativa DAFS.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand-mini"><span class="atom">⚛</span> DAFS</div>
+    <div id="clock">--:--</div>
+  </div>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow">DEPARTAMENTO DE LABORATORIOS DE FÍSICA</span>
+        <h1>HORARIOS DE LABORATORIOS</h1>
+        <p>Consulta tu laboratorio, grupo, día y horario desde cualquier dispositivo.</p>
+        <div class="hero-actions">
+          <button class="primary" onclick="scrollToSchedules()">Ver horarios</button>
+          <button class="ghost" onclick="openScreenMode()">Modo pantalla</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="orb orb1"></div><div class="orb orb2"></div>
+        <div class="formula">F = ma</div>
+        <div class="formula small">qE = F</div>
+        <div class="formula small2">λ = h/p</div>
+      </div>
+    </section>
+
+    <section class="screen-preview" id="screen">
+      <div class="promo">
+        <div class="promo-media" id="promoMedia">
+          <div class="promo-fallback">
+            <span class="big-icon">🔬</span>
+            <span>CONOCE NUESTROS<br>LABORATORIOS DE FÍSICA</span>
+          </div>
+        </div>
+        <div class="promo-text">
+          <span class="eyebrow">CIENCIA · TECNOLOGÍA · INNOVACIÓN</span>
+          <h2 id="promoTitle">Laboratorios de Física</h2>
+          <p id="promoSubtitle">Un espacio para aprender física experimentando.</p>
+        </div>
+      </div>
+      <aside class="qr-panel">
+        <div class="qr-head">¿BUSCAS TU HORARIO?</div>
+        <div id="qrcode" class="qrcode"></div>
+        <strong>ESCANEA AQUÍ</strong>
+        <p>Consulta los horarios en tu celular.</p>
+        <small id="qrUrl">Esta dirección se generará automáticamente.</small>
+      </aside>
+    </section>
+
+    <section class="section" id="horarios">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">CONSULTA DIGITAL</span>
+          <h2>Selecciona un horario</h2>
+        </div>
+        <div class="status"><span></span> Información editable</div>
+      </div>
+
+      <div id="scheduleTabs" class="tabs"></div>
+
+      <div class="filters">
+        <label>Buscar carrera o docente
+          <input id="search" type="search" placeholder="Ej. Mecánica, Victoria, Civil...">
+        </label>
+        <label>Día
+          <select id="dayFilter">
+            <option value="">Todos</option>
+            <option>Lunes</option><option>Martes</option><option>Miércoles</option>
+            <option>Jueves</option><option>Viernes</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="scheduleMeta" class="schedule-meta"></div>
+      <div id="scheduleContent"></div>
+    </section>
+
+    <section class="section media-section">
+      <div class="section-heading">
+        <div>
+          <span class="eyebrow">PROMOCIÓN</span>
+          <h2>Conoce nuestros laboratorios</h2>
+        </div>
+      </div>
+      <div class="media-grid">
+        <article><div class="media-placeholder">📷</div><h3>Laboratorio de Mecánica</h3><p>Reemplaza esta imagen por una fotografía real del laboratorio.</p></article>
+        <article><div class="media-placeholder">📷</div><h3>Laboratorio de Fluidos</h3><p>Reemplaza esta imagen por una fotografía real del laboratorio.</p></article>
+        <article><div class="media-placeholder">🎥</div><h3>Prácticas experimentales</h3><p>Coloca aquí un video corto de las prácticas.</p></article>
+      </div>
+      <div class="media-note">
+        <strong>Para la versión final:</strong> coloca las fotografías en <code>assets/fotos/</code> y los videos en <code>assets/videos/</code>. El carrusel de pantalla está preparado para incorporarlos.
+      </div>
+    </section>
+
+    <footer>
+      <div><strong>DAFS</strong> · Departamento de Laboratorios de Física</div>
+      <div>Versión inicial · 2026</div>
+    </footer>
+  </main>
+
+  <div id="screenOverlay" class="screen-overlay" aria-hidden="true">
+    <div class="screen-header">
+      <div><span class="atom">⚛</span> DEPARTAMENTO DE LABORATORIOS DE FÍSICA</div>
+      <div id="screenClock"></div>
+    </div>
+    <div class="screen-main">
+      <div class="screen-left">
+        <div class="screen-photo" id="screenPhoto">
+          <span>🔬</span>
+          <small>Coloca aquí tus fotos y videos</small>
+        </div>
+        <div class="screen-caption">
+          <span class="eyebrow">CIENCIA · TECNOLOGÍA · INNOVACIÓN</span>
+          <h1 id="screenTitle">Laboratorios de Física</h1>
+          <p id="screenSubtitle">Aprender física es experimentar.</p>
+        </div>
+      </div>
+      <div class="screen-right">
+        <div class="screen-qr-title">ESCANEA PARA VER<br>LOS HORARIOS</div>
+        <div id="screenQR" class="screen-qr"></div>
+        <div class="screen-url">Abre la cámara de tu celular</div>
+      </div>
+    </div>
+    <div class="screen-footer">DAFS · LABORATORIOS DE FÍSICA · 2026</div>
+    <button class="exit-screen" onclick="closeScreenMode()">Salir</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="js/schedules.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
