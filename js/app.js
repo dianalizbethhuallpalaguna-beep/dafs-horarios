@@ -183,8 +183,8 @@ function makeQR(targetId){
 
   new QRCode(box,{
     text:target,
-    width:190,
-    height:190,
+    width:170,
+    height:170,
     colorDark:"#062d5c",
     colorLight:"#ffffff",
     correctLevel:QRCode.CorrectLevel.H
