@@ -218,6 +218,8 @@ function openScreenMode(){
   makeQR("screenQR");
 
   startPromo();
+  
+  startDAFSCarousel();
 }
 
 
@@ -240,6 +242,50 @@ function closeScreenMode(){
    ========================================================= */
 
 let promoTimer = null;
+let dafsTimer = null;
+let dafsIndex = 0;
+
+const dafsImages = [
+  "assets/DAFS/DAFS01.jpg",
+  "assets/DAFS/DAFS02.jpg",
+  "assets/DAFS/DAFS03.jpg",
+  "assets/DAFS/DAFS04.jpg"
+];
+
+function startDAFSCarousel(){
+
+  clearInterval(dafsTimer);
+
+  dafsIndex = 0;
+
+  const image = document.getElementById("dafsSideImage");
+
+  if(!image) return;
+
+  image.src = dafsImages[dafsIndex];
+
+  dafsTimer = setInterval(() => {
+
+    dafsIndex++;
+
+    if(dafsIndex >= dafsImages.length){
+      dafsIndex = 0;
+    }
+
+    image.classList.remove("dafs-fade");
+
+    /*
+      Forzamos que el navegador
+      vuelva a ejecutar la animación.
+    */
+    void image.offsetWidth;
+
+    image.src = dafsImages[dafsIndex];
+
+    image.classList.add("dafs-fade");
+
+  }, 20000);
+}
 
 let promoIndex = 0;
 
