@@ -433,7 +433,7 @@ function startPromo(){
   */
 
   promoTimer =
-    setInterval(showPromo,8000);
+    setInterval(showPromo,20000);
 }
 
 
