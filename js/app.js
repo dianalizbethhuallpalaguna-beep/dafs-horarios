@@ -246,10 +246,10 @@ let dafsTimer = null;
 let dafsIndex = 0;
 
 const dafsImages = [
-  "assets/FotosDAFS/DAFS01.jpg",
-  "assets/FotosDAFS/DAFS02.jpg",
-  "assets/FotosDAFS/DAFS03.jpg",
-  "assets/FotosDAFS/DAFS04.jpg"
+  "assets/FotosDAFS/DAFS01.png",
+  "assets/FotosDAFS/DAFS02.png",
+  "assets/FotosDAFS/DAFS03.png",
+  "assets/FotosDAFS/DAFS04.png"
 ];
 
 function startDAFSCarousel(){
