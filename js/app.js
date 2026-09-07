@@ -462,26 +462,54 @@ function showPromo(){
    ========================================================= */
 
 function startPromo(){
-
   clearInterval(promoTimer);
 
-  /*
-     Empezamos desde la primera fotografía
-  */
+  const show=()=>{
+    const p=promos[promoIndex%promos.length];
+    promoIndex++;
 
-  promoIndex = 0;
+    document.getElementById("screenTitle").textContent=p.title;
+    document.getElementById("screenSubtitle").textContent=p.subtitle;
+    document.getElementById("promoTitle").textContent=p.title;
+    document.getElementById("promoSubtitle").textContent=p.subtitle;
 
-  showPromo();
+    const screenPhoto=document.getElementById("screenPhoto");
 
+    /* ==========================================
+       MOSTRAR FLYER DEL SIMPOSIO
+       ========================================== */
 
-  /*
-     Cada 8 segundos cambia de laboratorio
-  */
+    if(p.title==="XXXII Simposio Peruano de Física"){
 
-  promoTimer =
-    setInterval(showPromo,20000);
+      screenPhoto.innerHTML=`
+        <img
+          src="assets/eventos/simposio-fisica-2026.png"
+          alt="XXXII Simposio Peruano de Física 2026"
+          class="screen-event-image"
+        >
+      `;
+
+    }else if(p.title==="¿Ya tienes tu horario?"){
+
+      screenPhoto.innerHTML=`
+        <span>📱</span>
+        <small>Escanea el QR para consultar los horarios</small>
+      `;
+
+    }else{
+
+      screenPhoto.innerHTML=`
+        <span>🔬</span>
+        <small>Conoce nuestros laboratorios de Física</small>
+      `;
+
+    }
+  };
+
+  show();
+
+  promoTimer=setInterval(show,20000);
 }
-
 
 /* =========================================================
    EVENTOS
