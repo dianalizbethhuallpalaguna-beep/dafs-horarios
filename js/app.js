@@ -234,117 +234,11 @@ function closeScreenMode(){
     .setAttribute("aria-hidden","true");
 
   clearInterval(promoTimer);
+  clearInterval(dafsTimer)
 }
 
-
 /* =========================================================
-   PROMOCIÓN DE LABORATORIOS
-   ========================================================= */
-
-let promoTimer = null;
-let dafsTimer = null;
-let dafsIndex = 0;
-
-const dafsImages = [
-  "assets/FotosDAFS/DAFS01.png",
-  "assets/FotosDAFS/DAFS02.png",
-  "assets/FotosDAFS/DAFS03.png",
-  "assets/FotosDAFS/DAFS04.png"
-];
-
-function startDAFSCarousel(){
-
-  clearInterval(dafsTimer);
-
-  dafsIndex = 0;
-
-  const image = document.getElementById("dafsSideImage");
-
-  if(!image) return;
-
-  image.src = dafsImages[dafsIndex];
-
-  dafsTimer = setInterval(() => {
-
-    dafsIndex++;
-
-    if(dafsIndex >= dafsImages.length){
-      dafsIndex = 0;
-    }
-
-    image.classList.remove("dafs-fade");
-
-    /*
-      Forzamos que el navegador
-      vuelva a ejecutar la animación.
-    */
-    void image.offsetWidth;
-
-    image.src = dafsImages[dafsIndex];
-
-    image.classList.add("dafs-fade");
-
-  }, 20000);
-}
-
-let promoIndex = 0;
-
-
-/*
-   IMPORTANTE:
-
-   Estas son las rutas exactas que utilizaremos
-   según tus carpetas de GitHub.
-*/
-
-const promos = [
-
-  {
-    title:"Laboratorio de Mecánica A",
-    subtitle:"Movimiento, fuerzas, energía y experimentación.",
-    image:"assets/mecanica-a/mecanicaA_01.png"
-  },
-
-  {
-    title:"Laboratorio de Mecánica B",
-    subtitle:"Experimentación y análisis de fenómenos mecánicos.",
-    image:"assets/mecanica-b/mecanicaB_01.png"
-  },
-
-  {
-    title:"Laboratorio de Electricidad y Magnetismo",
-    subtitle:"Experimentación con fenómenos eléctricos y magnéticos.",
-    image:"assets/Electricidad/electricidad_01.png"
-  },
-
-  {
-    title:"Laboratorio de Física General",
-    subtitle:"Experimentación de los fundamentos de la física.",
-    image:"assets/Fisica-General/fisicaGeneral_01.png"
-  },
-
-  {
-    title:"Laboratorio de Fluidos y Termodinámica",
-    subtitle:"Estudio experimental de fluidos y fenómenos térmicos.",
-    image:"assets/Fluidos/fluidos_01.png"
-  },
-
-  {
-    title:"Laboratorio de Ondas y Óptica",
-    subtitle:"Experimentación con ondas, luz y fenómenos ópticos.",
-    image:"assets/Optica/Optica_01.png"
-  },
-
-  {
-    title:"¿Ya tienes tu horario?",
-    subtitle:"Escanea el código QR y consulta los horarios desde tu celular.",
-    qr:true
-  }
-
-];
-
-/* =========================================================
-   PROMOCIÓN Y CARRUSEL DE IMÁGENES
+   PROMOCIÓN / CARRUSEL DE PANTALLA
    ========================================================= */
 
 let promoTimer = null;
@@ -390,7 +284,7 @@ const promos = [
 
   {
     title: "XXXII Simposio Peruano de Física",
-    subtitle: "17 – 20 de noviembre de 2026 · Facultad de Ciencias de la UNSA",
+    subtitle: "17–20 de noviembre de 2026 · Facultad de Ciencias de la UNSA",
     image: "assets/eventos/simposio-fisica-2026.png"
   },
 
@@ -403,172 +297,102 @@ const promos = [
 ];
 
 
-function showPromo(){
-
-  const p = promos[promoIndex % promos.length];
-
-  promoIndex++;
-
-  /* ==========================================
-     ACTUALIZAR TÍTULOS
-     ========================================== */
-
-  const screenTitle =
-    document.getElementById("screenTitle");
-
-  const screenSubtitle =
-    document.getElementById("screenSubtitle");
-
-  const promoTitle =
-    document.getElementById("promoTitle");
-
-  const promoSubtitle =
-    document.getElementById("promoSubtitle");
-
-
-  if(screenTitle){
-    screenTitle.textContent = p.title;
-  }
-
-  if(screenSubtitle){
-    screenSubtitle.textContent = p.subtitle;
-  }
-
-  if(promoTitle){
-    promoTitle.textContent = p.title;
-  }
-
-  if(promoSubtitle){
-    promoSubtitle.textContent = p.subtitle;
-  }
-
-
-  /* ==========================================
-     ZONA DE IMAGEN
-     ========================================== */
-
-  const screenPhoto =
-    document.getElementById("screenPhoto");
-
-  if(!screenPhoto) return;
-
-
-  /* ==========================================
-     PANTALLA DEL QR
-     ========================================== */
-
-  if(p.qr){
-
-    screenPhoto.innerHTML = `
-      <div style="
-        width:100%;
-        height:100%;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        text-align:center;
-      ">
-
-        <span style="font-size:7vw;">📱</span>
-
-        <strong style="
-          font-size:clamp(18px,2vw,32px);
-          color:white;
-          margin-top:15px;
-        ">
-          ESCANEA EL QR
-        </strong>
-
-        <small style="
-          font-size:clamp(12px,1.2vw,18px);
-          color:#b9cee3;
-          margin-top:10px;
-        ">
-          Consulta los horarios desde tu celular
-        </small>
-
-      </div>
-    `;
-
-    return;
-  }
-
-
-  /* ==========================================
-     MOSTRAR IMAGEN
-     ========================================== */
-
-  if(p.image){
-
-    screenPhoto.innerHTML = `
-      <img
-        src="${p.image}"
-        alt="${esc(p.title)}"
-        class="screen-promo-image"
-      />
-    `;
-
-  }
-
-}
-
-
-/* ==========================================
-   INICIAR CARRUSEL
-   ========================================== */
-
 function startPromo(){
 
   clearInterval(promoTimer);
 
   promoIndex = 0;
 
-  showPromo();
+  const show = () => {
 
-  promoTimer = setInterval(showPromo, 20000);
+    const p = promos[promoIndex % promos.length];
 
-}
+    promoIndex++;
 
+    const title =
+      document.getElementById("screenTitle");
 
+    const subtitle =
+      document.getElementById("screenSubtitle");
 
+    const photo =
+      document.getElementById("screenPhoto");
 
-    /* ==========================================
-       MOSTRAR FLYER DEL SIMPOSIO
-       ========================================== */
-
-    if(p.title==="XXXII Simposio Peruano de Física"){
-
-      screenPhoto.innerHTML=`
-        <img
-          src="assets/eventos/simposio-fisica-2026.png"
-          alt="XXXII Simposio Peruano de Física 2026"
-          class="screen-event-image"
-        >
-      `;
-
-    }else if(p.title==="¿Ya tienes tu horario?"){
-
-      screenPhoto.innerHTML=`
-        <span>📱</span>
-        <small>Escanea el QR para consultar los horarios</small>
-      `;
-
-    }else{
-
-      screenPhoto.innerHTML=`
-        <span>🔬</span>
-        <small>Conoce nuestros laboratorios de Física</small>
-      `;
-
+    if(!title || !subtitle || !photo){
+      return;
     }
+
+
+    /* TEXTO */
+
+    title.textContent = p.title;
+    subtitle.textContent = p.subtitle;
+
+
+    /* QR */
+
+    if(p.qr){
+
+      photo.innerHTML = `
+        <div style="
+          display:flex;
+          flex-direction:column;
+          align-items:center;
+          justify-content:center;
+          text-align:center;
+          height:100%;
+          width:100%;
+        ">
+
+          <span style="font-size:7vw;">
+            📱
+          </span>
+
+          <strong style="
+            font-size:clamp(22px,2.5vw,40px);
+            color:white;
+            margin-top:15px;
+          ">
+            ESCANEA EL QR
+          </strong>
+
+          <small style="
+            font-size:clamp(13px,1.2vw,20px);
+            color:#b9cee3;
+            margin-top:10px;
+          ">
+            Consulta los horarios desde tu celular
+          </small>
+
+        </div>
+      `;
+
+      makeQR("screenQR");
+
+      return;
+    }
+
+
+    /* IMAGEN */
+
+    photo.innerHTML = `
+      <img
+        src="${p.image}"
+        alt="${esc(p.title)}"
+        class="screen-promo-image"
+      >
+    `;
+
   };
+
 
   show();
 
-  promoTimer=setInterval(show,20000);
-}
+  /* CAMBIO CADA 20 SEGUNDOS */
 
+  promoTimer = setInterval(show, 20000);
+
+}
 /* =========================================================
    EVENTOS
    ========================================================= */
