@@ -244,6 +244,48 @@ function closeScreenMode(){
 let promoTimer = null;
 let promoIndex = 0;
 
+let dafsTimer = null;
+let dafsIndex = 0;
+
+const dafsImages = [
+  "assets/FotosDAFS/DAFS01.jpg",
+  "assets/FotosDAFS/DAFS02.jpg",
+  "assets/FotosDAFS/DAFS03.jpg",
+  "assets/FotosDAFS/DAFS04.jpg"
+];
+
+function startDAFSCarousel(){
+
+  clearInterval(dafsTimer);
+
+  dafsIndex = 0;
+
+  const image = document.getElementById("dafsSideImage");
+
+  if(!image) return;
+
+  image.src = dafsImages[dafsIndex];
+
+  dafsTimer = setInterval(() => {
+
+    dafsIndex++;
+
+    if(dafsIndex >= dafsImages.length){
+      dafsIndex = 0;
+    }
+
+    image.classList.remove("dafs-fade");
+
+    // Reinicia la animación
+    void image.offsetWidth;
+
+    image.src = dafsImages[dafsIndex];
+
+    image.classList.add("dafs-fade");
+
+  }, 20000);
+} 
+
 const promos = [
 
   {
@@ -397,15 +439,6 @@ function startPromo(){
    EVENTOS
    ========================================================= */
 
-document
-  .getElementById("search")
-  .addEventListener("input",renderSchedule);
-
-
-document
-  .getElementById("dayFilter")
-  .addEventListener("change",renderSchedule);
-
 
 document.addEventListener("keydown",e=>{
 
@@ -431,6 +464,14 @@ document.addEventListener("DOMContentLoaded",()=>{
   setInterval(updateClock,1000);
 
   makeQR("qrcode");
+
+  document
+    .getElementById("search")
+    .addEventListener("input",renderSchedule);
+
+  document
+    .getElementById("dayFilter")
+    .addEventListener("change",renderSchedule);
 
 
   /*
