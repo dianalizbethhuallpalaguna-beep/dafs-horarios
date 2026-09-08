@@ -343,40 +343,96 @@ const promos = [
 
 ];
 
-
 /* =========================================================
-   MOSTRAR PROMOCIÓN
+   PROMOCIÓN Y CARRUSEL DE IMÁGENES
    ========================================================= */
+
+let promoTimer = null;
+let promoIndex = 0;
+
+const promos = [
+
+  {
+    title: "Laboratorio de Mecánica A",
+    subtitle: "Movimiento, fuerzas, energía y experimentación.",
+    image: "assets/mecanica-a/mecanicaA_01.png"
+  },
+
+  {
+    title: "Laboratorio de Mecánica B",
+    subtitle: "Experimentación y análisis de fenómenos mecánicos.",
+    image: "assets/mecanica-b/mecanicaB_01.png"
+  },
+
+  {
+    title: "Laboratorio de Electricidad y Magnetismo",
+    subtitle: "Experimentación con fenómenos eléctricos y magnéticos.",
+    image: "assets/Electricidad/electricidad_01.png"
+  },
+
+  {
+    title: "Laboratorio de Física General",
+    subtitle: "Experimentación de los fundamentos de la física.",
+    image: "assets/Fisica-General/fisicaGeneral_01.png"
+  },
+
+  {
+    title: "Laboratorio de Fluidos y Termodinámica",
+    subtitle: "Estudio experimental de fluidos y fenómenos térmicos.",
+    image: "assets/Fluidos/fluidos_01.png"
+  },
+
+  {
+    title: "Laboratorio de Ondas y Óptica",
+    subtitle: "Experimentación con ondas, luz y fenómenos ópticos.",
+    image: "assets/Optica/Optica_01.png"
+  },
+
+  {
+    title: "XXXII Simposio Peruano de Física",
+    subtitle: "17 – 20 de noviembre de 2026 · Facultad de Ciencias de la UNSA",
+    image: "assets/eventos/simposio-fisica-2026.png"
+  },
+
+  {
+    title: "¿Ya tienes tu horario?",
+    subtitle: "Escanea el código QR y consulta los horarios desde tu celular.",
+    qr: true
+  }
+
+];
+
 
 function showPromo(){
 
-  const p =
-    promos[promoIndex % promos.length];
+  const p = promos[promoIndex % promos.length];
 
   promoIndex++;
 
+  /* ==========================================
+     ACTUALIZAR TÍTULOS
+     ========================================== */
 
-  /*
-     Cambiar textos
-  */
+  const screenTitle =
+    document.getElementById("screenTitle");
 
-  document.getElementById("screenTitle").textContent =
-    p.title;
-
-  document.getElementById("screenSubtitle").textContent =
-    p.subtitle;
-
-
-  /*
-     También actualizamos la zona superior
-     de la página.
-  */
+  const screenSubtitle =
+    document.getElementById("screenSubtitle");
 
   const promoTitle =
     document.getElementById("promoTitle");
 
   const promoSubtitle =
     document.getElementById("promoSubtitle");
+
+
+  if(screenTitle){
+    screenTitle.textContent = p.title;
+  }
+
+  if(screenSubtitle){
+    screenSubtitle.textContent = p.subtitle;
+  }
 
   if(promoTitle){
     promoTitle.textContent = p.title;
@@ -387,33 +443,39 @@ function showPromo(){
   }
 
 
-  /*
-     ZONA PRINCIPAL DE LA PANTALLA
-  */
+  /* ==========================================
+     ZONA DE IMAGEN
+     ========================================== */
 
   const screenPhoto =
     document.getElementById("screenPhoto");
 
+  if(!screenPhoto) return;
 
-  /*
-     Si es la pantalla del QR
-  */
+
+  /* ==========================================
+     PANTALLA DEL QR
+     ========================================== */
 
   if(p.qr){
 
     screenPhoto.innerHTML = `
       <div style="
+        width:100%;
+        height:100%;
         display:flex;
         flex-direction:column;
         align-items:center;
         justify-content:center;
-        gap:15px;
+        text-align:center;
       ">
+
         <span style="font-size:7vw;">📱</span>
 
         <strong style="
           font-size:clamp(18px,2vw,32px);
-          color:#ffffff;
+          color:white;
+          margin-top:15px;
         ">
           ESCANEA EL QR
         </strong>
@@ -421,9 +483,11 @@ function showPromo(){
         <small style="
           font-size:clamp(12px,1.2vw,18px);
           color:#b9cee3;
+          margin-top:10px;
         ">
           Consulta los horarios desde tu celular
         </small>
+
       </div>
     `;
 
@@ -431,49 +495,43 @@ function showPromo(){
   }
 
 
-  /*
-     Si es una fotografía
-  */
+  /* ==========================================
+     MOSTRAR IMAGEN
+     ========================================== */
 
-  screenPhoto.innerHTML = `
-    <img
-      src="${p.image}"
-      alt="${esc(p.title)}"
-      style="
-        width:100%;
-        height:100%;
-        object-fit:cover;
-        border-radius:24px;
-        display:block;
-      "
-      onerror="this.parentElement.innerHTML=
-      '<div style=&quot;text-align:center;color:white;&quot;>
-      <span style=&quot;font-size:70px;&quot;>⚠️</span>
-      <br>
-      No se encontró la fotografía
-      </div>'"
-    />
-  `;
+  if(p.image){
+
+    screenPhoto.innerHTML = `
+      <img
+        src="${p.image}"
+        alt="${esc(p.title)}"
+        class="screen-promo-image"
+      />
+    `;
+
+  }
+
 }
 
 
-/* =========================================================
+/* ==========================================
    INICIAR CARRUSEL
-   ========================================================= */
+   ========================================== */
 
 function startPromo(){
+
   clearInterval(promoTimer);
 
-  const show=()=>{
-    const p=promos[promoIndex%promos.length];
-    promoIndex++;
+  promoIndex = 0;
 
-    document.getElementById("screenTitle").textContent=p.title;
-    document.getElementById("screenSubtitle").textContent=p.subtitle;
-    document.getElementById("promoTitle").textContent=p.title;
-    document.getElementById("promoSubtitle").textContent=p.subtitle;
+  showPromo();
 
-    const screenPhoto=document.getElementById("screenPhoto");
+  promoTimer = setInterval(showPromo, 20000);
+
+}
+
+
+
 
     /* ==========================================
        MOSTRAR FLYER DEL SIMPOSIO
