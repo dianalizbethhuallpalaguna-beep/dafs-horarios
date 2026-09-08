@@ -275,35 +275,91 @@
     </footer>
   </main>
 
+  <!-- =========================================
+       MODO PANTALLA
+       ========================================= -->
+
   <div id="screenOverlay" class="screen-overlay" aria-hidden="true">
+
     <div class="screen-header">
-      <div><span class="atom">⚛</span> DEPARTAMENTO DE LABORATORIOS DE FÍSICA</div>
-      <div id="screenClock"></div>
+      <div>
+        <span class="atom">⚛</span>
+        DEPARTAMENTO DE LABORATORIOS DE FÍSICA
+      </div>
+
+      <div id="screenClock">--:--:--</div>
     </div>
+
+
     <div class="screen-main">
+
+      <!-- ==============================
+           PARTE IZQUIERDA
+           ============================== -->
+
       <div class="screen-left">
+
         <div class="screen-photo" id="screenPhoto">
           <span>🔬</span>
-          <small>Coloca aquí tus fotos y videos</small>
+          <small>Conoce nuestros laboratorios de Física</small>
         </div>
+
         <div class="screen-caption">
-          <span class="eyebrow">CIENCIA · TECNOLOGÍA · INNOVACIÓN</span>
-          <h1 id="screenTitle">Laboratorios de Física</h1>
-          <p id="screenSubtitle">Aprender física es experimentar.</p>
+
+          <span class="eyebrow">
+            CIENCIA · TECNOLOGÍA · INNOVACIÓN
+          </span>
+
+          <h1 id="screenTitle">
+            Laboratorios de Física
+          </h1>
+
+          <p id="screenSubtitle">
+            Aprender física es experimentar.
+          </p>
+
         </div>
+
       </div>
-     <div class="screen-right">
-  <div class="dafs-carousel">
-    <img
-      id="dafsSideImage"
-      src="assets/FotosDAFS/DAFS01.jpg"
-      alt="Departamento Académico de Laboratorios de Física"
-      class="screen-side-image"
-    >
-  </div>
-</div>
-    <div class="screen-footer">DAFS · LABORATORIOS DE FÍSICA · 2026</div>
-    <button class="exit-screen" onclick="closeScreenMode()">Salir</button>
+
+
+      <!-- ==============================
+           PARTE DERECHA
+           ============================== -->
+
+      <div class="screen-right">
+
+        <div class="dafs-carousel">
+
+          <img
+            id="dafsSideImage"
+            src="assets/FotosDAFS/DAFS01.png"
+            alt="Departamento de Laboratorios de Física"
+            class="screen-side-image"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ==============================
+         PIE DE PANTALLA
+         ============================== -->
+
+    <div class="screen-footer">
+      DAFS · LABORATORIOS DE FÍSICA · 2026
+    </div>
+
+
+    <button
+      class="exit-screen"
+      onclick="closeScreenMode()">
+      Salir
+    </button>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
